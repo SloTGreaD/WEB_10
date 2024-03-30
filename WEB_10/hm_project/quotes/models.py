@@ -1,19 +1,19 @@
 from django.db import models
 
 # Create your models here.
-class Tag(models.Model):
-    name = models.CharField(max_length=25, null=False, unique=True)
-
-    def __str__(self):
-        return f"{self.name}"
 
 
-class Note(models.Model):
-    name = models.CharField(max_length=50, null=False)
-    description = models.CharField(max_length=150, null=False)
-    done = models.BooleanField(default=False)
+
+class Author(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(max_length=150)
     created = models.DateTimeField(auto_now_add=True)
+    
+class Tag(models.Model):
+    name = models.CharField(max_length=30, null=False, unique=True)
+    
+class Quote(models.Model):
+    quote = models.TextField()
     tags = models.ManyToManyField(Tag)
-
-    def __str__(self):
-        return f"{self.name}"
+    author = models.CharField(max_length=50, default=None, null=True)    #ForeignKey(Author, on_delete=models.CASCADE, default=None, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
